@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
@@ -37,8 +36,9 @@ app.post('/api/hwid', (req, res) => {
 
   const { hwid } = req.body;
 
-  if (!hwid || typeof hwid !== 'string' || hwid.length < 20 || hwid.length > 128 || !/^[a-f0-9]+$/i.test(hwid)) {
-    return res.status(400).json({ success: false, error: 'Invalid HWID' });
+  // RELAXED VALIDATION: Accepts any string between 5 and 256 characters
+  if (!hwid || typeof hwid !== 'string' || hwid.length < 5 || hwid.length > 256) {
+    return res.status(400).json({ success: false, error: 'Invalid HWID length or type' });
   }
 
   const hwids = getAllHwids();
