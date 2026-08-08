@@ -36,7 +36,6 @@ app.post('/api/hwid', (req, res) => {
 
   const { hwid } = req.body;
 
-  // RELAXED VALIDATION: Accepts any string between 5 and 256 characters
   if (!hwid || typeof hwid !== 'string' || hwid.length < 5 || hwid.length > 256) {
     return res.status(400).json({ success: false, error: 'Invalid HWID length or type' });
   }
@@ -62,7 +61,4 @@ app.post('/api/hwid', (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+module.exports = app;
